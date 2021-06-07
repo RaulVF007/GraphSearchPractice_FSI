@@ -98,16 +98,18 @@ def graph_search(problem, fringe):
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     closed = {}
+    c = 0  # Nuevo práctica 2, variable para contar nodos visitados
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
-            return node
+            return node, c #Devolvemos el nodo en cuestión y la variable encargada de la cuenta de nodos visitados, que
+                            #nos será útil para hacer el print informando en el run
         if node.state not in closed:
+            c += 1  # Nuevo práctica 2
             closed[node.state] = True
             fringe.extend(node.expand(problem))
     return None
-
 
 def breadth_first_graph_search(problem):
     """Search the shallowest nodes in the search tree first. [p 74]"""
@@ -122,7 +124,11 @@ def depth_first_graph_search(problem):
 def branch_and_bround_graph_search(problem):
     return graph_search(problem, BranchAndBround())
 
-# _____________________________________________________________________________
+#Nuevo método práctica 2
+def branch_and_bround_with_underestimation_graph_search(problem):
+    return graph_search(problem, BranchAndBroundWithUnderestimation(problem))
+
+# _________________________________________ ____________________________________
 # The remainder of this file implements examples for the search algorithms.
 
 # ______________________________________________________________________________

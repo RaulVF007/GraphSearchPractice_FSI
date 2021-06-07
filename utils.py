@@ -1,6 +1,7 @@
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
+import math
 
 infinity = 1.0e400
 
@@ -541,6 +542,7 @@ class FIFOQueue(Queue):
         if self.start > 5 and self.start > len(self.A) / 2:
             self.A = self.A[self.start:]
             self.start = 0
+        #self.A.pop(0)
         return e
 
 #Nuevo práctica 1
@@ -570,6 +572,33 @@ class BranchAndBround(Queue):
         #self.A.pop(self.__len__()) #Nuevo práctica 1
         return e
 
+#Nuevo práctica 2
+class BranchAndBroundWithUnderestimation(Queue):
+
+    def __init__(self,problem): #Nuevo práctica 2: Hay que añadir variable problem que será nuestra heurística
+        self.A = []
+        self.start = 0
+        self.problem = problem #Nuevo práctica 2: Inicializamos la variable problem a la del valor de la instancia
+
+    def append(self, item):
+        self.A.append(item)
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+    def extend(self, items):
+        self.A.extend(items)
+        #Nuevo práctica 2: Ordenar de mayor a menor pathcost + subestimación (distancia mediante una línea recta de un
+        #nodo actual a un nodo objetivo, esta distancia te la devuelve la función h de la clase GPSProblem (search.py):
+        self.A.sort(key=lambda node: node.path_cost + self.problem.h(node))
+
+    def pop(self):
+        e = self.A[self.start]
+        self.start += 1
+        if self.start > 5 and self.start > len(self.A) / 2:
+            self.A = self.A[self.start:]
+            self.start = 0
+        return e
 
 ## Fig: The idea is we can define things like Fig[3,10] later.
 ## Alas, it is Fig[3,10] not Fig[3.10], because that would be the same as Fig[3.1]
