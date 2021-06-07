@@ -5,8 +5,13 @@ import search
 ab = search.GPSProblem('A', 'B'
                        , search.romania)
 
-print(search.breadth_first_graph_search(ab).path())
-print(search.depth_first_graph_search(ab).path())
+#print(search.breadth_first_graph_search(ab).path())
+#print(search.depth_first_graph_search(ab).path())
+
+print("Camino de A a B:")
+print("Búsqueda por ramificación y acotación:", search.branch_and_bround_graph_search(ab).path())
+print("-> Coste del camino:", search.branch_and_bround_graph_search(ab).path_cost)
+
 
 # Result:
 # [<Node B>, <Node P>, <Node R>, <Node S>, <Node A>] : 101 + 97 + 80 + 140 = 418

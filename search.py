@@ -118,7 +118,9 @@ def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, Stack())
 
-
+#Nuevo método práctica 1
+def branch_and_bround_graph_search(problem):
+    return graph_search(problem, BranchAndBround())
 
 # _____________________________________________________________________________
 # The remainder of this file implements examples for the search algorithms.
